@@ -1669,7 +1669,6 @@
     },
     "staleAdmission": {
       "title": "Clear stuck pairing state",
-      "description": "An interrupted pairing (e.g. system crash or reboot) can leave a stale “admission in progress” record that makes every later attempt fail with “failed to join space”. This action clears only those pending records — your space, history and paired devices are untouched.",
       "trigger": "Clear stale pairing state",
       "running": "Clearing…",
       "success": "Stale pairing state cleared. You can pair again.",
@@ -1677,7 +1676,8 @@
       "confirmTitle": "Clear stale pairing state?",
       "confirmDescription": "Only pending join/pairing records are cleared; space, history and memberships are preserved.",
       "confirmAction": "Clear",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "hint": "Pairing stuck? Clear stale pairing state (space data untouched)."
     }
   },
   "pairing": {
