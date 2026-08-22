@@ -10154,6 +10154,47 @@
         ]
       }
     },
+    "/v2/setup/clear-stale-admission": {
+      "post": {
+        "operationId": "setupV2ClearStaleAdmission",
+        "responses": {
+          "204": {
+            "description": "Pending admission attempts cleared"
+          },
+          "500": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "Internal error / storage failure"
+          },
+          "503": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ApiErrorResponse"
+                }
+              }
+            },
+            "description": "Setup service unavailable"
+          }
+        },
+        "security": [
+          {
+            "session_query": []
+          },
+          {
+            "session_header": []
+          }
+        ],
+        "tags": [
+          "setup-v2"
+        ]
+      }
+    },
     "/v2/setup/initialize": {
       "post": {
         "operationId": "setupV2Initialize",

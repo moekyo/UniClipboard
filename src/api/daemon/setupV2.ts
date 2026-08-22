@@ -9,6 +9,7 @@
 import {
   setupV2Cancel,
   setupV2CancelJoin,
+  setupV2ClearStaleAdmission,
   setupV2GetState,
   setupV2Initialize,
   setupV2IssueInvitation,
@@ -324,6 +325,13 @@ function classifyResetError(err: unknown): SetupV2Error<ResetErrorKind> {
   return new SetupV2Error('internal', raw, status)
 }
 
+function classifyStaleAdmissionError(err: unknown): SetupV2Error<ResetErrorKind> {
+  const status = pickStatus(err)
+  const raw = rawMessage(err)
+  if (status === 503) return new SetupV2Error('service_unavailable', raw, status)
+  return new SetupV2Error('internal', raw, status)
+}
+
 function classifyQueryError(err: unknown): SetupV2Error<QuerySetupStateErrorKind> {
   const status = pickStatus(err)
   const raw = rawMessage(err)
@@ -475,6 +483,20 @@ export async function resetSetup(): Promise<void> {
     await daemonClient.callSdk(() => setupV2Reset({ throwOnError: true }))
   } catch (err) {
     throw classifyResetError(err)
+  }
+}
+
+/**
+ * Clear stale (pending) admission attempts left behind by an interrupted
+ * pairing, without touching the intact space, its history or members.
+ * Lightweight recovery surfaced as the settings-page
+ * "clear stuck pairing state" action.
+ */
+export async function clearStaleAdmission(): Promise<void> {
+  try {
+    await daemonClient.callSdk(() => setupV2ClearStaleAdmission({ throwOnError: true }))
+  } catch (err) {
+    throw classifyStaleAdmissionError(err)
   }
 }
 

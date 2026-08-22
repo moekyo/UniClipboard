@@ -5790,6 +5790,35 @@ export type SetupV2CancelJoinResponses = {
 
 export type SetupV2CancelJoinResponse = SetupV2CancelJoinResponses[keyof SetupV2CancelJoinResponses];
 
+export type SetupV2ClearStaleAdmissionData = {
+    body?: never;
+    path?: never;
+    query?: never;
+    url: '/v2/setup/clear-stale-admission';
+};
+
+export type SetupV2ClearStaleAdmissionErrors = {
+    /**
+     * Internal error / storage failure
+     */
+    500: ApiErrorResponse;
+    /**
+     * Setup service unavailable
+     */
+    503: ApiErrorResponse;
+};
+
+export type SetupV2ClearStaleAdmissionError = SetupV2ClearStaleAdmissionErrors[keyof SetupV2ClearStaleAdmissionErrors];
+
+export type SetupV2ClearStaleAdmissionResponses = {
+    /**
+     * Pending admission attempts cleared
+     */
+    204: void;
+};
+
+export type SetupV2ClearStaleAdmissionResponse = SetupV2ClearStaleAdmissionResponses[keyof SetupV2ClearStaleAdmissionResponses];
+
 export type SetupV2InitializeData = {
     body: InitializeSpaceRequest;
     path?: never;

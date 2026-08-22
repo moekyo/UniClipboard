@@ -194,6 +194,10 @@ pub mod http_route_v2 {
     pub const SETUP_SWITCH_SPACE: &str = "/v2/setup/switch-space";
     /// POST /v2/setup/cancel-join — cancel one durable admission attempt.
     pub const SETUP_CANCEL_JOIN: &str = "/v2/setup/cancel-join";
+    /// POST /v2/setup/clear-stale-admission — clear pending (non-terminal)
+    /// admission attempts left behind by an interrupted pairing, without
+    /// touching the intact space.
+    pub const SETUP_CLEAR_STALE_ADMISSION: &str = "/v2/setup/clear-stale-admission";
 }
 
 /// HTTP route paths for daemon auth endpoints.

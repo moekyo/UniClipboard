@@ -1664,6 +1664,18 @@
           "internal": "內部錯誤 —— 請查看 daemon 日誌。"
         }
       }
+    },
+    "staleAdmission": {
+      "title": "清除卡住的配對狀態",
+      "description": "配對過程中斷（如系統當機或重啟）可能留下「加入進行中」的殘留記錄，導致之後一直提示「加入空間失敗」。點擊下方按鈕只會清除這些殘留記錄，不會影響空間資料、歷史記錄或已配對裝置。",
+      "trigger": "清除殘留配對狀態",
+      "running": "清除中…",
+      "success": "已清除殘留配對狀態，可以重新發起配對。",
+      "failed": "清除失敗：",
+      "confirmTitle": "確認清除殘留配對狀態？",
+      "confirmDescription": "只會清除未完成的加入/配對記錄；空間、歷史與成員關係不受影響。",
+      "confirmAction": "確認清除",
+      "cancel": "取消"
     }
   },
   "pairing": {
@@ -2062,7 +2074,10 @@
     "joinPending": {
       "title": "等待確認",
       "subtitle": "正在等待加入結果。",
-      "actions": { "cancel": "取消加入", "back": "返回" },
+      "actions": {
+        "cancel": "取消加入",
+        "back": "返回"
+      },
       "rejected": {
         "title": "無法加入空間",
         "reasons": {

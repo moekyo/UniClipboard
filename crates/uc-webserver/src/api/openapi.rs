@@ -250,6 +250,7 @@ impl Modify for ContractMeta {
         crate::api::v2::setup::get_state,
         crate::api::v2::setup::switch_space,
         crate::api::v2::setup::cancel_join,
+        crate::api::v2::setup::clear_stale_admission,
     ),
     components(
         schemas(
@@ -649,8 +650,8 @@ mod assembly_smoke_tests {
             .expect("OpenAPI doc must declare paths");
         assert_eq!(
             paths.len(),
-            73,
-            "expected exactly 73 path templates, found {}: {:?}",
+            74,
+            "expected exactly 74 path templates, found {}: {:?}",
             paths.len(),
             paths.keys().collect::<Vec<_>>()
         );
@@ -664,8 +665,8 @@ mod assembly_smoke_tests {
             })
             .sum();
         assert_eq!(
-            operation_count, 81,
-            "expected exactly 81 operations across all paths, found {operation_count}"
+            operation_count, 82,
+            "expected exactly 82 operations across all paths, found {operation_count}"
         );
 
         // A few frozen operationIds (§D) must be present somewhere in the doc.

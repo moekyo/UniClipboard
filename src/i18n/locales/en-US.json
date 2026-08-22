@@ -1666,6 +1666,18 @@
           "internal": "Internal error — see daemon logs."
         }
       }
+    },
+    "staleAdmission": {
+      "title": "Clear stuck pairing state",
+      "description": "An interrupted pairing (e.g. system crash or reboot) can leave a stale “admission in progress” record that makes every later attempt fail with “failed to join space”. This action clears only those pending records — your space, history and paired devices are untouched.",
+      "trigger": "Clear stale pairing state",
+      "running": "Clearing…",
+      "success": "Stale pairing state cleared. You can pair again.",
+      "failed": "Clear failed: ",
+      "confirmTitle": "Clear stale pairing state?",
+      "confirmDescription": "Only pending join/pairing records are cleared; space, history and memberships are preserved.",
+      "confirmAction": "Clear",
+      "cancel": "Cancel"
     }
   },
   "pairing": {
@@ -2064,7 +2076,10 @@
     "joinPending": {
       "title": "Waiting for confirmation",
       "subtitle": "Waiting for the join result.",
-      "actions": { "cancel": "Cancel join", "back": "Back" },
+      "actions": {
+        "cancel": "Cancel join",
+        "back": "Back"
+      },
       "rejected": {
         "title": "Could not join the space",
         "reasons": {

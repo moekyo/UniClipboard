@@ -1664,6 +1664,18 @@
           "internal": "内部错误 —— 请查看 daemon 日志。"
         }
       }
+    },
+    "staleAdmission": {
+      "title": "清理卡死的配对状态",
+      "description": "配对过程中断（如系统崩溃或重启）可能留下“加入进行中”的残留记录，导致之后一直提示“加入空间失败”。点击下面按钮只会清除这些残留记录，不会影响空间数据、历史记录或已配对设备。",
+      "trigger": "清理残留配对状态",
+      "running": "清理中…",
+      "success": "已清除残留配对状态，可以重新发起配对。",
+      "failed": "清理失败：",
+      "confirmTitle": "确认清理残留配对状态？",
+      "confirmDescription": "只会清除未完成的加入/配对记录；空间、历史与成员关系不受影响。",
+      "confirmAction": "确认清理",
+      "cancel": "取消"
     }
   },
   "pairing": {
@@ -2062,7 +2074,10 @@
     "joinPending": {
       "title": "等待对方确认",
       "subtitle": "正在等待加入结果。",
-      "actions": { "cancel": "取消加入", "back": "返回" },
+      "actions": {
+        "cancel": "取消加入",
+        "back": "返回"
+      },
       "rejected": {
         "title": "未能加入空间",
         "reasons": {

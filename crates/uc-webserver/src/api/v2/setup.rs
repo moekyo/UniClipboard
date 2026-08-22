@@ -53,6 +53,10 @@ pub fn router() -> Router<DaemonApiState> {
         .route(http_route_v2::SETUP_STATE, get(get_state))
         .route(http_route_v2::SETUP_SWITCH_SPACE, post(switch_space))
         .route(http_route_v2::SETUP_CANCEL_JOIN, post(cancel_join))
+        .route(
+            http_route_v2::SETUP_CLEAR_STALE_ADMISSION,
+            post(clear_stale_admission),
+        )
 }
 
 // ---------------------------------------------------------------------------
@@ -404,6 +408,57 @@ fn map_reset_engine_err(err: EngineError) -> ApiError {
         _ => ("internal", ApiError::internal("failed to reset space")),
     };
     log_facade_failure("space_setup", "reset", variant, api.status, &api.message);
+    api
+}
+
+// ---------------------------------------------------------------------------
+// POST /v2/setup/clear-stale-admission
+// ---------------------------------------------------------------------------
+
+#[utoipa::path(
+    post,
+    path = "/v2/setup/clear-stale-admission",
+    tag = "setup-v2",
+    operation_id = "setupV2ClearStaleAdmission",
+    responses(
+        (status = 204, description = "Pending admission attempts cleared"),
+        (status = 503, description = "Setup service unavailable", body = ApiErrorResponse),
+        (status = 500, description = "Internal error / storage failure", body = ApiErrorResponse),
+    ),
+)]
+pub(crate) async fn clear_stale_admission(
+    State(state): State<DaemonApiState>,
+) -> Result<StatusCode, ApiError> {
+    let result = state
+        .execute(Operation::ClearStaleAdmission)
+        .await
+        .map_err(map_clear_stale_admission_engine_err)?;
+    if result != OperationResult::StaleAdmissionCleared {
+        return Err(ApiError::internal(
+            "engine returned an unexpected clear-stale-admission result",
+        ));
+    }
+    Ok(StatusCode::NO_CONTENT)
+}
+
+fn map_clear_stale_admission_engine_err(err: EngineError) -> ApiError {
+    let (variant, api): (&'static str, ApiError) = match err.category() {
+        EngineErrorCategory::Unavailable => (
+            "service_unavailable",
+            ApiError::service_unavailable("clear stale admission service unavailable"),
+        ),
+        _ => (
+            "internal",
+            ApiError::internal("failed to clear stale admission state"),
+        ),
+    };
+    log_facade_failure(
+        "space_setup",
+        "clear_stale_admission",
+        variant,
+        api.status,
+        &api.message,
+    );
     api
 }
 
