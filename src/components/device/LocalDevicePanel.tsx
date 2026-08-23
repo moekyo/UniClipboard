@@ -112,7 +112,7 @@ const LocalDevicePanel: React.FC<LocalDevicePanelProps> = ({ localDevice, member
         </Button>
       </header>
 
-      <div className="flex items-center justify-end gap-2 border-b border-border/40 px-5 py-2 @md:px-6">
+      <div className="flex items-center justify-end gap-2 px-5 py-2 @md:px-6">
         <StaleAdmissionRecoveryAction />
       </div>
 
