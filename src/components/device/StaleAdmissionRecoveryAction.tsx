@@ -53,8 +53,8 @@ export function StaleAdmissionRecoveryAction() {
   }
 
   return (
-    <div className="flex items-center gap-2">
-      <Button variant="outline" size="xs" disabled={busy} onClick={() => setConfirmOpen(true)}>
+    <div className="flex items-center gap-1">
+      <Button variant="ghost" size="xs" disabled={busy} onClick={() => setConfirmOpen(true)}>
         {busy ? t('devices.staleAdmission.running') : t('devices.staleAdmission.trigger')}
       </Button>
       <Popover>

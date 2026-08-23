@@ -99,22 +99,21 @@ const LocalDevicePanel: React.FC<LocalDevicePanelProps> = ({ localDevice, member
             </span>
           </p>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          className="shrink-0"
-          aria-label={t('devices.switchSpace.button')}
-          title={t('devices.switchSpace.button')}
-          onClick={() => setSwitchSpaceOpen(true)}
-        >
-          <ArrowRightLeft className="size-3.5" />
-          <span className="hidden @lg:inline">{t('devices.switchSpace.button')}</span>
-        </Button>
+        <div className="flex shrink-0 flex-col items-end gap-0.5">
+          <Button
+            variant="ghost"
+            size="sm"
+            className="shrink-0"
+            aria-label={t('devices.switchSpace.button')}
+            title={t('devices.switchSpace.button')}
+            onClick={() => setSwitchSpaceOpen(true)}
+          >
+            <ArrowRightLeft className="size-3.5" />
+            <span className="hidden @lg:inline">{t('devices.switchSpace.button')}</span>
+          </Button>
+          <StaleAdmissionRecoveryAction />
+        </div>
       </header>
-
-      <div className="flex items-center justify-end gap-2 px-5 py-2 @md:px-6">
-        <StaleAdmissionRecoveryAction />
-      </div>
 
       <div className="grid min-w-0 content-start @3xl:flex-1 @3xl:content-stretch @3xl:grid-cols-[minmax(16rem,0.82fr)_minmax(22rem,1.18fr)]">
         <section className="min-w-0 px-5 pt-5 pb-3 @md:px-6 @3xl:py-5">
