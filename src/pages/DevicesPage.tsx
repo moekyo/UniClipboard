@@ -59,7 +59,6 @@ import LocalDevicePanel from '@/components/device/LocalDevicePanel'
 import MobileDevicePanel from '@/components/device/MobileDevicePanel'
 import MobileSyncSettingsDialog from '@/components/device/MobileSyncSettingsDialog'
 import PeerDetailPanel from '@/components/device/PeerDetailPanel'
-import { StaleAdmissionRecoveryAction } from '@/components/device/StaleAdmissionRecoveryAction'
 import StatusDot, { type StatusDotTone } from '@/components/device/StatusDot'
 import UnpairAlertDialog from '@/components/device/UnpairAlertDialog'
 import { Alert, AlertDescription } from '@/components/ui/alert'
@@ -545,9 +544,6 @@ const DevicesPage: React.FC = () => {
           {effectiveSelection.kind === 'local' &&
             (localDevice ? (
               <>
-                <div className="mx-auto w-full max-w-2xl px-8 pt-4">
-                  <StaleAdmissionRecoveryAction />
-                </div>
                 <LocalDevicePanel localDevice={localDevice} memberCount={peers.length + 1} />
               </>
             ) : localDeviceError ? (

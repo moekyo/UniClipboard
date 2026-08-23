@@ -1677,7 +1677,9 @@
       "confirmDescription": "Only pending join/pairing records are cleared; space, history and memberships are preserved.",
       "confirmAction": "Clear",
       "cancel": "Cancel",
-      "hint": "Pairing stuck? Clear stale pairing state (space data untouched)."
+      "hint": "Pairing stuck? Clear stale pairing state (space data untouched).",
+      "description": "An interrupted pairing (e.g. system crash or reboot) can leave a stale “admission in progress” record that makes later attempts fail with “failed to join space”. This clears only those pending records on this device — your space, history and paired devices are untouched.",
+      "infoAriaLabel": "Clear stale pairing state info"
     }
   },
   "pairing": {

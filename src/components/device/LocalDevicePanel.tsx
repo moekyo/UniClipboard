@@ -17,6 +17,7 @@ import type { LocalDeviceInfo } from '@/api/daemon/members'
 import CopyIconButton from '@/components/device/CopyIconButton'
 import { getDeviceIcon } from '@/components/device/device-utils'
 import PanelFactRow from '@/components/device/PanelFactRow'
+import { StaleAdmissionRecoveryAction } from '@/components/device/StaleAdmissionRecoveryAction'
 import StatusDot from '@/components/device/StatusDot'
 import SwitchSpaceDialog from '@/components/device/SwitchSpaceDialog'
 import { Button } from '@/components/ui/button'
@@ -110,6 +111,10 @@ const LocalDevicePanel: React.FC<LocalDevicePanelProps> = ({ localDevice, member
           <span className="hidden @lg:inline">{t('devices.switchSpace.button')}</span>
         </Button>
       </header>
+
+      <div className="flex items-center justify-end gap-2 border-b border-border/40 px-5 py-2 @md:px-6">
+        <StaleAdmissionRecoveryAction />
+      </div>
 
       <div className="grid min-w-0 content-start @3xl:flex-1 @3xl:content-stretch @3xl:grid-cols-[minmax(16rem,0.82fr)_minmax(22rem,1.18fr)]">
         <section className="min-w-0 px-5 pt-5 pb-3 @md:px-6 @3xl:py-5">

@@ -1,3 +1,4 @@
+import { Info } from 'lucide-react'
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { clearStaleAdmission } from '@/api/daemon/setupV2'
@@ -12,17 +13,21 @@ import {
   AlertDialogTitle,
 } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
+import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
 import { createLogger } from '@/lib/logger'
 
 const log = createLogger('stale-admission-recovery')
 
 /**
- * Settings-page recovery action for the "stale admission" failure mode: an
- * interrupted pairing (crash / blue screen) leaves a durable "admission in
- * progress" record that blocks every later pairing attempt with
- * "failed to join space" until it is cleared. Runs the lightweight
+ * Recovery action for the "stale admission" failure mode: an interrupted
+ * pairing (crash / blue screen) leaves a durable "admission in progress"
+ * record that blocks every later pairing attempt with "failed to join
+ * space" until it is cleared. Runs the lightweight
  * `/v2/setup/clear-stale-admission` operation — clears only the pending
  * admission attempts and preserves the space, its history and members.
+ *
+ * The info popover explains the action (mirrors LanOnlyDisclosure: click-only
+ * Popover), while the button itself stays short and uncluttered.
  */
 export function StaleAdmissionRecoveryAction() {
   const { t } = useTranslation()
@@ -48,10 +53,34 @@ export function StaleAdmissionRecoveryAction() {
   }
 
   return (
-    <div className="flex items-center gap-2 rounded-md border border-border/50 px-3 py-2">
-      <span className="min-w-0 flex-1 text-xs text-muted-foreground">
-        {t('devices.staleAdmission.hint')}
-      </span>
+    <div className="flex items-center gap-2">
+      <Button variant="outline" size="xs" disabled={busy} onClick={() => setConfirmOpen(true)}>
+        {busy ? t('devices.staleAdmission.running') : t('devices.staleAdmission.trigger')}
+      </Button>
+      <Popover>
+        <PopoverTrigger
+          render={
+            <button
+              type="button"
+              aria-label={t('devices.staleAdmission.infoAriaLabel')}
+              aria-haspopup="dialog"
+              className="inline-flex items-center justify-center rounded-md p-1 text-muted-foreground hover:text-foreground hover:bg-accent focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+            />
+          }
+        >
+          <Info className="size-3.5" aria-hidden="true" />
+        </PopoverTrigger>
+        <PopoverContent align="start" sideOffset={8} aria-labelledby="stale-admission-info-title">
+          <div className="space-y-2">
+            <p id="stale-admission-info-title" className="text-sm font-medium">
+              {t('devices.staleAdmission.title')}
+            </p>
+            <p className="text-xs text-muted-foreground leading-snug">
+              {t('devices.staleAdmission.description')}
+            </p>
+          </div>
+        </PopoverContent>
+      </Popover>
       {outcome === 'ok' && (
         <span className="text-xs text-foreground">{t('devices.staleAdmission.success')}</span>
       )}
@@ -61,9 +90,6 @@ export function StaleAdmissionRecoveryAction() {
           {errorMessage ? ` (${errorMessage})` : ''}
         </span>
       )}
-      <Button variant="outline" size="xs" disabled={busy} onClick={() => setConfirmOpen(true)}>
-        {busy ? t('devices.staleAdmission.running') : t('devices.staleAdmission.trigger')}
-      </Button>
 
       <AlertDialog open={confirmOpen} onOpenChange={setConfirmOpen}>
         <AlertDialogContent>
