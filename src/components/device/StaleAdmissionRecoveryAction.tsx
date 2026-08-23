@@ -43,10 +43,12 @@ export function StaleAdmissionRecoveryAction() {
     try {
       await clearStaleAdmission()
       setOutcome('ok')
+      setConfirmOpen(false)
     } catch (err) {
       log.warn({ err }, 'clear stale admission failed')
       setOutcome('error')
       setErrorMessage(err instanceof Error ? err.message : String(err))
+      setConfirmOpen(false)
     } finally {
       setBusy(false)
     }
