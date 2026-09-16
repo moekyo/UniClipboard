@@ -51,12 +51,7 @@ dbg_macro = "warn"
 [workspace.dependencies]
 # All desktop consumers use one immutable Engine revision. Features remain
 # opt-in at each host boundary so LAN compatibility cannot become a default.
-#
-# Temporary test pin: UniClipboard/Engine#75 (clipboard self-write multi-event
-# echo attribution) rebased on the current main revision, which now includes
-# the admission transition error-source chain (#74). Move back to
-# `UniClipboard/Engine` once #75 is merged.
-uc-engine = { git = "https://github.com/moekyo/Engine.git", rev = "3c2214e01bb5d5a43ccac9a3e51ed908bd80ea39" }
+uc-engine = { git = "https://github.com/UniClipboard/Engine.git", rev = "3b5fb58dbffba2ab494a0036ce9f135e9e706972" }
 
 # tauri 2.11 是 specta rc.25 兼容的最低版本 —— 2.10.x 及之前在
 # `tauri/src/ipc/channel.rs` 用了 `#[specta(remote=..., rename="...")]`
